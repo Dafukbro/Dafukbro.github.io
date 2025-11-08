@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuenta Regresiva - Liga El Yanny</title>
   <style>
-    /* ========== RESETEO Y BASE GENERAL ========== */
+    /* ======= RESETEO GENERAL ======= */
     * {
       margin: 0;
       padding: 0;
@@ -20,8 +20,8 @@
       background-attachment: fixed;
       color: #1a472a;
       min-height: 100vh;
-      scroll-behavior: smooth;
       overflow-y: scroll;
+      scroll-behavior: smooth;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -35,22 +35,7 @@
       z-index: -1;
     }
 
-    /* ========== SCROLL PERSONALIZADO ========== */
-    body::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    body::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    body::-webkit-scrollbar-thumb {
-      background-color: #1a472a;
-      border-radius: 10px;
-      border: 2px solid #ffd700;
-    }
-
-    /* ========== NAVBAR ========== */
+    /* ======= NAVBAR ======= */
     .navbar {
       position: fixed;
       top: 0;
@@ -98,7 +83,7 @@
       background: rgba(255, 255, 255, 0.1);
     }
 
-    /* ========== CONTENIDO PRINCIPAL ========== */
+    /* ======= CONTENIDO PRINCIPAL ======= */
     main {
       padding-top: 90px;
       display: flex;
@@ -118,11 +103,10 @@
       margin: 30px auto;
     }
 
-    /* ========== SECCIÓN CABECERA ========== */
+    /* ======= CABECERA ======= */
     .header-section {
       background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
       padding: 35px 25px;
-      position: relative;
       text-align: center;
     }
 
@@ -165,16 +149,13 @@
       color: #fff;
       font-size: 2.3em;
       font-weight: 800;
-      letter-spacing: 1px;
       margin-top: 8px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     }
 
     .league-details {
       color: rgba(255, 255, 255, 0.95);
       font-size: 1.05em;
       margin-top: 10px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .season-info {
@@ -182,14 +163,16 @@
       font-style: italic;
       margin-top: 8px;
       font-size: 0.95em;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
-    /* ========== CONTADOR ========== */
+    /* ======= CONTADOR ======= */
     .countdown-section {
       background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
-      padding: 40px 25px 50px 25px;
-      text-align: center;
+      padding: 50px 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .countdown-title {
@@ -199,19 +182,26 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
+      text-align: center;
     }
 
     .time-boxes {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+      max-width: 700px;
     }
 
     .time-box {
       background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
       border-radius: 15px;
-      padding: 25px 8px;
+      padding: 25px 15px;
       color: white;
+      width: 130px;
+      text-align: center;
       box-shadow: 0 8px 20px rgba(26, 71, 42, 0.4);
       border: 2px solid rgba(255, 215, 0, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -226,17 +216,15 @@
       font-size: 2.8em;
       font-weight: 900;
       color: #ffd700;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .time-label {
       font-size: 0.85em;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      opacity: 0.9;
+      letter-spacing: 1px;
     }
 
-    /* ========== SECCIÓN ADICIONAL ========== */
+    /* ======= SECCIÓN ADICIONAL ======= */
     .additional-content {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 25px;
@@ -260,35 +248,10 @@
       font-size: 1.05em;
     }
 
-    /* ========== ADAPTABILIDAD MÓVIL ========== */
+    /* ======= RESPONSIVE ======= */
     @media (max-width: 768px) {
-      .navbar {
-        padding: 12px 18px;
-        height: 60px;
-      }
-
-      .navbar-logo {
-        font-size: 1.2em;
-      }
-
-      .navbar-links {
-        gap: 10px;
-      }
-
-      h1 {
-        font-size: 1.6em;
-      }
-
-      .league-name {
-        font-size: 1.8em;
-      }
-
-      .time-boxes {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-      }
-
       .time-box {
+        width: 120px;
         padding: 20px 10px;
       }
 
@@ -296,54 +259,24 @@
         font-size: 2.3em;
       }
 
-      .additional-content {
-        padding: 25px 18px;
-        margin: 40px auto;
-      }
-
-      .additional-content h2 {
-        font-size: 1.4em;
-      }
-
-      .additional-content p {
-        font-size: 0.95em;
+      .time-boxes {
+        gap: 15px;
       }
     }
 
     @media (max-width: 480px) {
-      .navbar {
-        flex-direction: column;
-        gap: 6px;
-        height: auto;
-      }
-
-      .navbar-links {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .container {
-        width: 94%;
-      }
-
-      .soccer-icon {
-        font-size: 3.5em;
-      }
-
-      .league-name {
-        font-size: 1.5em;
+      .time-box {
+        width: 45%;
+        min-width: 130px;
       }
 
       .time-value {
         font-size: 2em;
       }
 
-      .time-label {
-        font-size: 0.8em;
-      }
-
-      .additional-content {
-        border-radius: 18px;
+      .countdown-title {
+        font-size: 1.1em;
+        margin-bottom: 18px;
       }
     }
   </style>
