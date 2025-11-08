@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos Inscritos - Liga El Yanny</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ======== FONDO Y ESTILO GENERAL ======== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #1a472a;
+            scroll-behavior: smooth;
+            overflow-y: scroll;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* ======== SCROLLBAR PERSONALIZADO ======== */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #1a472a;
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+        }
+
+        /* ======== NAVBAR ======== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 71, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .navbar-logo {
+            color: #ffd700;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar-links a:hover {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ======== CONTENIDO PRINCIPAL ======== */
+        main {
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            max-width: 900px;
+            width: 90%;
+            overflow: hidden;
+            border: 3px solid #fff;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-section h1 {
+            color: #1a472a;
+            font-size: 2.2em;
+            text-transform: uppercase;
+            border-bottom: 3px solid #ffd700;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* ======== TARJETAS DE EQUIPOS ======== */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .team-card {
+            background: linear-gradient(to bottom right, #ffffff, #f5f5f5);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(26, 71, 42, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(26, 71, 42, 0.4);
+        }
+
+        .team-logo {
+            font-size: 3em;
+            color: #1a472a;
+            margin-bottom: 10px;
+        }
+
+        .team-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1a472a;
+            text-transform: uppercase;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 25px; }
+            .team-card { padding: 20px; }
+            .team-name { font-size: 1.1em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ======== NAVBAR ======== -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <span>⚽</span>
+            <span>Liga El Yanny</span>
+        </a>
+        <ul class="navbar-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="equipos.html">Equipos</a></li>
+        </ul>
+    </nav>
+
+    <!-- ======== CONTENIDO PRINCIPAL ======== -->
+    <main>
+        <div class="container">
+            <div class="header-section">
+                <h1>Equipos Inscritos</h1>
+            </div>
+
+            <div class="teams-grid" id="teamsList">
+                <!-- Tarjetas generadas dinámicamente -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Lista de equipos (puedes agregar más)
+        const equipos = [
+            "La Marka",
+            "Servi Color"
+        ];
+
+        const teamsContainer = document.getElementById("teamsList");
+
+        // Generar tarjetas
+        equipos.forEach(nombre => {
+            const card = document.createElement("div");
+            card.className = "team-card";
+            card.innerHTML = `
+                <div class="team-logo">🏆</div>
+                <div class="team-name">${nombre}</div>
+            `;
+            teamsContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>

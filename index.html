@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuenta Regresiva - Partido de Fútbol</title>
+    <title>Cuenta Regresiva - Inicio de Liga</title>
     <style>
         * {
             margin: 0;
@@ -11,245 +11,348 @@
             box-sizing: border-box;
         }
 
+        /* ======== FONDO Y SCROLL GENERAL ======== */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f4c28 0%, #1a7a3e 50%, #0f4c28 100%);
+            background-image: url('https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            color: #1a472a;
+        }
+
+        /* ✅ Personalización de barra de desplazamiento */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #1a472a;
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #2d5a3d;
         }
 
         body::before {
-            content: '⚽';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.05;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* ======== NAVBAR ======== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 71, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px; /* altura base */
+        }
+
+        .navbar-logo {
+            color: #ffd700;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar-links a:hover {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+
+        /* ======== CONTENIDO PRINCIPAL ======== */
+        main {
+            padding-top: 90px; /* ✅ deja espacio para el navbar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            width: 100%;
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            width: 90%;
+            overflow: hidden;
+            border: 3px solid #fff;
+            margin-top: 30px;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            padding: 30px;
+            position: relative;
+        }
+
+        .soccer-icon {
+            text-align: center;
+            font-size: 5em;
+            margin-bottom: 15px;
+            animation: spinBall 3s linear infinite;
+            color: white;
+        }
+
+        @keyframes spinBall {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         h1 {
             text-align: center;
-            color: #667eea;
-            margin-bottom: 30px;
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .league-badge {
+            text-align: center;
+            background: rgba(255, 215, 0, 0.9);
+            color: #1a472a;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin: 10px auto;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .league-name {
+            text-align: center;
+            color: #fff;
             font-size: 2.5em;
+            margin: 15px 0;
+            font-weight: 800;
         }
 
-        .input-section {
-            margin-bottom: 30px;
+        .league-details {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.95);
+            margin: 15px 0;
+            font-size: 1.1em;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
+        .season-info {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
             margin-top: 10px;
+            font-size: 1em;
         }
 
-        button:hover {
-            transform: translateY(-2px);
+        .countdown-section {
+            padding: 40px 30px;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
-        .countdown-display {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .countdown-display.active {
-            display: block;
+        .countdown-title {
+            text-align: center;
+            font-size: 1.3em;
+            color: #1a472a;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .time-boxes {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
         }
 
         .time-box {
-            background: linear-gradient(135deg, #0f4c28 0%, #1a7a3e 100%);
-            border-radius: 12px;
-            padding: 20px 10px;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            border-radius: 15px;
+            padding: 25px 10px;
             text-align: center;
             color: white;
-            box-shadow: 0 5px 15px rgba(15, 76, 40, 0.3);
+            box-shadow: 0 8px 20px rgba(26, 71, 42, 0.4);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(26, 71, 42, 0.6);
         }
 
         .time-value {
-            font-size: 2.5em;
-            font-weight: bold;
-            display: block;
+            font-size: 3em;
+            font-weight: 900;
+            color: #ffd700;
         }
 
         .time-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-top: 5px;
-            display: block;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .event-name {
+        .additional-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 800px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .additional-content h2 {
+            color: #1a472a;
             text-align: center;
-            font-size: 1.5em;
-            color: #0f4c28;
             margin-bottom: 20px;
-            font-weight: 600;
         }
 
-        .message {
+        .additional-content p {
+            color: #333;
+            line-height: 1.8;
             text-align: center;
-            font-size: 2em;
-            color: #1a7a3e;
-            font-weight: bold;
-            animation: pulse 1s infinite;
-            padding: 40px 20px;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        @media (max-width: 768px) {
+            .time-boxes { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .time-boxes {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .time-value {
-                font-size: 2em;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="soccer-icon">⚽</div>
-        <h1>Cuenta Regresiva</h1>
-        
-        <!-- CONFIGURACIÓN DEL PARTIDO -->
-        <!-- Modifica estos valores según tu evento -->
-        <div class="match-info" id="matchInfo">Equipo A vs Equipo B</div>
-        <div class="match-details" id="matchDetails">
-            <div id="matchDate"></div>
-        </div>
-        <div class="stadium" id="stadium">Estadio Nacional</div>
+    <nav class="navbar">
+        <a href="#" onclick="goToHome(event)" class="navbar-logo">
+            <span>⚽</span>
+            <span id="navLeagueName">Liga</span>
+        </a>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="navbar-links" id="navLinks">
+            <li><a href="#" onclick="goToHome(event)">Inicio</a></li>
+            <li><a href="#" onclick="goToTeams(event)">Equipos</a></li>
+        </ul>
+    </nav>
 
-        <div class="time-boxes" id="timeBoxes">
-            <div class="time-box">
-                <span class="time-value" id="days">0</span>
-                <span class="time-label">Días</span>
+    <main>
+        <section id="inicio">
+            <div class="container">
+                <div class="header-section">
+                    <div class="soccer-icon">⚽</div>
+                    <h1>Cuenta Regresiva</h1>
+                    <div style="text-align:center;">
+                        <span class="league-badge" id="leagueBadge">Liga de Fútbol</span>
+                    </div>
+                    <div class="league-name" id="leagueName">Nombre de la Liga</div>
+                    <div class="league-details" id="leagueDetails">
+                        <div id="startDate"></div>
+                    </div>
+                    <div class="season-info" id="seasonInfo">Temporada 2025</div>
+                </div>
+
+                <div class="countdown-section">
+                    <div class="countdown-title">⏱️ Faltan</div>
+                    <div class="time-boxes" id="timeBoxes">
+                        <div class="time-box"><span class="time-value" id="days">0</span><span class="time-label">Días</span></div>
+                        <div class="time-box"><span class="time-value" id="hours">0</span><span class="time-label">Horas</span></div>
+                        <div class="time-box"><span class="time-value" id="minutes">0</span><span class="time-label">Minutos</span></div>
+                        <div class="time-box"><span class="time-value" id="seconds">0</span><span class="time-label">Segundos</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="time-box">
-                <span class="time-value" id="hours">0</span>
-                <span class="time-label">Horas</span>
+        </section>
+
+        <section id="more-info">
+            <div class="additional-content">
+                <h2>🏆 Próximamente</h2>
+                <p>Información adicional sobre la liga y las competiciones estará disponible próximamente.</p>
+                <p>Mantente atento a las actualizaciones.</p>
             </div>
-            <div class="time-box">
-                <span class="time-value" id="minutes">0</span>
-                <span class="time-label">Minutos</span>
-            </div>
-            <div class="time-box">
-                <span class="time-value" id="seconds">0</span>
-                <span class="time-label">Segundos</span>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
-        // ========================================
-        // CONFIGURACIÓN DEL PARTIDO
-        // ========================================
-        const matchConfig = {
-            team1: "Real Madrid",
-            team2: "Barcelona",
-            date: "2025-12-15",  // Formato: YYYY-MM-DD
-            time: "20:00",       // Formato: HH:MM (24 horas)
-            stadium: "Estadio Santiago Bernabéu",
-            tournament: "La Liga"
+        const leagueConfig = {
+            leagueName: "Liga El Yanny",
+            category: "Liga Abierta",
+            startDate: "2026-01-23",
+            startTime: "19:00",
+            season: "Temporada 2026",
+            teamsPageUrl: "equipos.html"
         };
-        // ========================================
 
-        // Configurar la información del partido
-        document.getElementById('matchInfo').textContent = 
-            `${matchConfig.team1} vs ${matchConfig.team2}`;
-        
-        document.getElementById('matchDetails').innerHTML = 
-            `<strong>${matchConfig.tournament}</strong><br>${formatDate(matchConfig.date)} • ${matchConfig.time}`;
-        
-        document.getElementById('stadium').textContent = matchConfig.stadium;
+        document.getElementById('leagueName').textContent = leagueConfig.leagueName;
+        document.getElementById('navLeagueName').textContent = leagueConfig.leagueName;
+        document.getElementById('leagueBadge').textContent = leagueConfig.category;
+        document.getElementById('leagueDetails').innerHTML =
+            `<strong>Inicio: ${formatDate(leagueConfig.startDate)}</strong><br>${leagueConfig.startTime} hrs`;
+        document.getElementById('seasonInfo').textContent = leagueConfig.season;
 
-        // Crear fecha objetivo
-        const targetTime = new Date(`${matchConfig.date}T${matchConfig.time}:00`).getTime();
+        const targetTime = new Date(`${leagueConfig.startDate}T${leagueConfig.startTime}:00`).getTime();
 
-        // Función para formatear la fecha
         function formatDate(dateString) {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const date = new Date(dateString);
             return date.toLocaleDateString('es-ES', options);
         }
 
-        // Función para actualizar el contador
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetTime - now;
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                document.getElementById('timeBoxes').innerHTML = 
-                    '<div class="message">🎉 ¡El partido está en curso! ⚽</div>';
+                document.querySelector('.countdown-section').innerHTML =
+                    '<div class="message">🎉 ¡La liga ha comenzado! ⚽</div>';
                 return;
             }
 
@@ -264,9 +367,18 @@
             document.getElementById('seconds').textContent = seconds;
         }
 
-        // Iniciar el contador
         updateCountdown();
         const countdownInterval = setInterval(updateCountdown, 1000);
+
+        function goToHome(event) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToTeams(event) {
+            event.preventDefault();
+            window.location.href = leagueConfig.teamsPageUrl;
+        }
     </script>
 </body>
 </html>
