@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva - Partido de Fútbol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f4c28 0%, #1a7a3e 50%, #0f4c28 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '⚽';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .countdown-display {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .countdown-display.active {
+            display: block;
+        }
+
+        .time-boxes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .time-box {
+            background: linear-gradient(135deg, #0f4c28 0%, #1a7a3e 100%);
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(15, 76, 40, 0.3);
+        }
+
+        .time-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .event-name {
+            text-align: center;
+            font-size: 1.5em;
+            color: #0f4c28;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 2em;
+            color: #1a7a3e;
+            font-weight: bold;
+            animation: pulse 1s infinite;
+            padding: 40px 20px;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .time-boxes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .time-value {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="soccer-icon">⚽</div>
+        <h1>Cuenta Regresiva</h1>
+        
+        <!-- CONFIGURACIÓN DEL PARTIDO -->
+        <!-- Modifica estos valores según tu evento -->
+        <div class="match-info" id="matchInfo">Equipo A vs Equipo B</div>
+        <div class="match-details" id="matchDetails">
+            <div id="matchDate"></div>
+        </div>
+        <div class="stadium" id="stadium">Estadio Nacional</div>
+
+        <div class="time-boxes" id="timeBoxes">
+            <div class="time-box">
+                <span class="time-value" id="days">0</span>
+                <span class="time-label">Días</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="hours">0</span>
+                <span class="time-label">Horas</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="minutes">0</span>
+                <span class="time-label">Minutos</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="seconds">0</span>
+                <span class="time-label">Segundos</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // CONFIGURACIÓN DEL PARTIDO
+        // ========================================
+        const matchConfig = {
+            team1: "Real Madrid",
+            team2: "Barcelona",
+            date: "2025-12-15",  // Formato: YYYY-MM-DD
+            time: "20:00",       // Formato: HH:MM (24 horas)
+            stadium: "Estadio Santiago Bernabéu",
+            tournament: "La Liga"
+        };
+        // ========================================
+
+        // Configurar la información del partido
+        document.getElementById('matchInfo').textContent = 
+            `${matchConfig.team1} vs ${matchConfig.team2}`;
+        
+        document.getElementById('matchDetails').innerHTML = 
+            `<strong>${matchConfig.tournament}</strong><br>${formatDate(matchConfig.date)} • ${matchConfig.time}`;
+        
+        document.getElementById('stadium').textContent = matchConfig.stadium;
+
+        // Crear fecha objetivo
+        const targetTime = new Date(`${matchConfig.date}T${matchConfig.time}:00`).getTime();
+
+        // Función para formatear la fecha
+        function formatDate(dateString) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', options);
+        }
+
+        // Función para actualizar el contador
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetTime - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('timeBoxes').innerHTML = 
+                    '<div class="message">🎉 ¡El partido está en curso! ⚽</div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        // Iniciar el contador
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
