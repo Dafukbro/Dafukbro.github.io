@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cuenta Regresiva - Liga El Yanny</title>
   <style>
-    /* ======= RESETEO GENERAL ======= */
+    /* ======= RESET Y BASE ======= */
     * {
       margin: 0;
       padding: 0;
@@ -30,26 +30,29 @@
     body::before {
       content: '';
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.55);
       z-index: -1;
     }
 
-    /* ======= NAVBAR ======= */
+    /* ======= NAVBAR (idéntica a equipos.html) ======= */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       background: rgba(26, 71, 42, 0.95);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
+      padding: 14px 22px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 25px;
       height: 65px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
     }
 
     .navbar-logo {
@@ -73,9 +76,9 @@
       color: white;
       text-decoration: none;
       font-weight: 600;
+      transition: all 0.3s ease;
       padding: 8px 14px;
       border-radius: 6px;
-      transition: all 0.3s ease;
     }
 
     .navbar-links a:hover {
@@ -130,7 +133,6 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-bottom: 8px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     }
 
     .league-badge {
@@ -142,7 +144,6 @@
       font-size: 0.9em;
       display: inline-block;
       margin-bottom: 10px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     }
 
     .league-name {
@@ -186,10 +187,8 @@
     }
 
     .time-boxes {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 20px;
       width: 100%;
       max-width: 700px;
@@ -198,9 +197,8 @@
     .time-box {
       background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
       border-radius: 15px;
-      padding: 25px 15px;
+      padding: clamp(15px, 3vw, 25px);
       color: white;
-      width: 130px;
       text-align: center;
       box-shadow: 0 8px 20px rgba(26, 71, 42, 0.4);
       border: 2px solid rgba(255, 215, 0, 0.3);
@@ -213,83 +211,46 @@
     }
 
     .time-value {
-      font-size: 2.8em;
+      font-size: clamp(2em, 6vw, 2.8em);
       font-weight: 900;
       color: #ffd700;
     }
 
     .time-label {
-      font-size: 0.85em;
+      font-size: clamp(0.7em, 2.5vw, 0.85em);
       text-transform: uppercase;
       letter-spacing: 1px;
-    }
-
-    /* ======= SECCIÓN ADICIONAL ======= */
-    .additional-content {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 25px;
-      padding: 40px 25px;
-      margin: 50px auto;
-      width: 90%;
-      max-width: 800px;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
-      text-align: center;
-    }
-
-    .additional-content h2 {
-      color: #1a472a;
-      font-size: 1.7em;
-      margin-bottom: 15px;
-    }
-
-    .additional-content p {
-      color: #333;
-      line-height: 1.8;
-      font-size: 1.05em;
-    }
-
-    /* ======= RESPONSIVE ======= */
-    @media (max-width: 768px) {
-      .time-box {
-        width: 120px;
-        padding: 20px 10px;
-      }
-
-      .time-value {
-        font-size: 2.3em;
-      }
-
-      .time-boxes {
-        gap: 15px;
-      }
+      display: block;
+      margin-top: 5px;
     }
 
     @media (max-width: 480px) {
-      .time-box {
-        width: 45%;
-        min-width: 130px;
+      .navbar {
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
       }
 
-      .time-value {
-        font-size: 2em;
+      .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
-      .countdown-title {
-        font-size: 1.1em;
-        margin-bottom: 18px;
+      .time-boxes {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="#" onclick="goToHome(event)" class="navbar-logo">
+    <a href="index.html" class="navbar-logo">
       <span>⚽</span>
-      <span id="navLeagueName">Liga El Yanny</span>
+      <span>Liga El Yanny</span>
     </a>
-    <ul class="navbar-links" id="navLinks">
-      <li><a href="#" onclick="goToHome(event)" style="color:#ffd700;">Inicio</a></li>
-      <li><a href="#" onclick="goToTeams(event)">Equipos</a></li>
+    <ul class="navbar-links">
+      <li><a href="index.html" style="color:#ffd700;">Inicio</a></li>
+      <li><a href="equipos.html">Equipos</a></li>
     </ul>
   </nav>
 
@@ -299,15 +260,15 @@
         <div class="header-section">
           <div class="soccer-icon">⚽</div>
           <h1>Cuenta Regresiva</h1>
-          <span class="league-badge" id="leagueBadge">Liga Abierta</span>
-          <div class="league-name" id="leagueName">Liga El Yanny</div>
+          <span class="league-badge">Liga Abierta</span>
+          <div class="league-name">Liga El Yanny</div>
           <div class="league-details" id="leagueDetails"></div>
-          <div class="season-info" id="seasonInfo">Temporada 2026</div>
+          <div class="season-info">Temporada 2026</div>
         </div>
 
         <div class="countdown-section">
           <div class="countdown-title">⏱️ Faltan</div>
-          <div class="time-boxes" id="timeBoxes">
+          <div class="time-boxes">
             <div class="time-box"><span class="time-value" id="days">0</span><span class="time-label">Días</span></div>
             <div class="time-box"><span class="time-value" id="hours">0</span><span class="time-label">Horas</span></div>
             <div class="time-box"><span class="time-value" id="minutes">0</span><span class="time-label">Minutos</span></div>
@@ -316,75 +277,40 @@
         </div>
       </div>
     </section>
-
-    <section id="more-info">
-      <div class="additional-content">
-        <h2>🏆 Próximamente</h2>
-        <p>Información adicional sobre la liga y las competiciones estará disponible próximamente.</p>
-        <p>Mantente atento a las actualizaciones.</p>
-      </div>
-    </section>
   </main>
 
   <script>
-    const leagueConfig = {
-      leagueName: "Liga El Yanny",
-      category: "Liga Abierta",
-      startDate: "2026-01-23",
-      startTime: "19:00",
-      season: "Temporada 2026",
-      teamsPageUrl: "equipos.html"
-    };
+    // 🕒 Fecha exacta: 23 de enero de 2026 a las 19:00 (hora local Panamá)
+    const target = new Date("2026-01-23T19:00:00-05:00").getTime();
 
-    document.getElementById('leagueName').textContent = leagueConfig.leagueName;
-    document.getElementById('navLeagueName').textContent = leagueConfig.leagueName;
-    document.getElementById('leagueBadge').textContent = leagueConfig.category;
-    document.getElementById('leagueDetails').innerHTML =
-      `<strong>Inicio:</strong> ${formatDate(leagueConfig.startDate)}<br>${leagueConfig.startTime} hrs`;
-    document.getElementById('seasonInfo').textContent = leagueConfig.season;
+    const leagueDetails = document.getElementById("leagueDetails");
+    const date = new Date("2026-01-23T19:00:00-05:00");
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    leagueDetails.innerHTML = `<strong>Inicio:</strong> ${date.toLocaleDateString('es-ES', options)} — 7:00 p.m.`;
 
-    const targetTime = new Date(`${leagueConfig.startDate}T${leagueConfig.startTime}:00`).getTime();
-
-    function formatDate(dateString) {
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const date = new Date(dateString);
-      return date.toLocaleDateString('es-ES', options);
-    }
-
-    function updateCountdown() {
+    function update() {
       const now = new Date().getTime();
-      const distance = targetTime - now;
+      const diff = target - now;
 
-      if (distance < 0) {
-        clearInterval(countdownInterval);
-        document.querySelector('.countdown-section').innerHTML =
-          '<div class="message">🎉 ¡La liga ha comenzado! ⚽</div>';
+      if (diff <= 0) {
+        document.querySelector('.time-boxes').innerHTML =
+          "<div class='message'>🎉 ¡La liga ha comenzado! ⚽</div>";
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent = hours;
-      document.getElementById('minutes').textContent = minutes;
-      document.getElementById('seconds').textContent = seconds;
+      document.getElementById("days").textContent = d;
+      document.getElementById("hours").textContent = h;
+      document.getElementById("minutes").textContent = m;
+      document.getElementById("seconds").textContent = s;
     }
 
-    updateCountdown();
-    const countdownInterval = setInterval(updateCountdown, 1000);
-
-    function goToHome(event) {
-      event.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function goToTeams(event) {
-      event.preventDefault();
-      window.location.href = leagueConfig.teamsPageUrl;
-    }
+    setInterval(update, 1000);
+    update();
   </script>
 </body>
 </html>
