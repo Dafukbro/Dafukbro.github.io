@@ -250,7 +250,8 @@
     </a>
     <ul class="navbar-links">
       <li><a href="index.html" style="color:#ffd700;">Inicio</a></li>
-      <li><a href="equipos.html">Equipos</a></li>
+      <li><a href="equipos.html">Equipos Masculinos</a></li>
+      <li><a href="Equipos_Femeninos.html">Equipos Femeninos</a></li>
     </ul>
   </nav>
 
@@ -280,13 +281,13 @@
   </main>
 
   <script>
-    // 🕒 Fecha exacta: 23 de enero de 2026 a las 19:00 (hora local Panamá)
-    const target = new Date("2026-01-23T19:00:00-05:00").getTime();
+    // 🕒 Fecha exacta: 24 de enero de 2026 a las 18:00 (hora local Panamá)
+    const target = new Date("2026-01-24T18:00:00-05:00").getTime();
 
     const leagueDetails = document.getElementById("leagueDetails");
-    const date = new Date("2026-01-23T19:00:00-05:00");
+    const date = new Date("2026-01-24T18:00:00-05:00");
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    leagueDetails.innerHTML = `<strong>Inicio:</strong> ${date.toLocaleDateString('es-ES', options)} — 7:00 p.m.`;
+    leagueDetails.innerHTML = `<strong>Inicio:</strong> ${date.toLocaleDateString('es-ES', options)} — 6:00 p.m.`;
 
     function update() {
       const now = new Date().getTime();
